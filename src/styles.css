@@ -1,0 +1,131 @@
+/* =========================================================
+   Reserva de Horas Médicas - Hoja de estilos
+   Proyecto DevOps integrador (sitio estático servido con Nginx)
+   ========================================================= */
+
+:root {
+  --color-primario: #0b6e74;
+  --color-primario-oscuro: #08545a;
+  --color-acento: #2bb3a3;
+  --color-fondo: #f3f7f8;
+  --color-tarjeta: #ffffff;
+  --color-texto: #1f2d33;
+  --color-suave: #5d6f76;
+  --color-borde: #d6e2e5;
+  --color-ok: #1e9e5a;
+  --color-error: #c0392b;
+  --color-info: #2f7dd1;
+  --radio: 10px;
+  --sombra: 0 2px 10px rgba(16, 52, 60, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+.contenedor { width: min(1100px, 92%); margin: 0 auto; }
+
+/* ---------- Encabezado ---------- */
+.encabezado { background: var(--color-primario); color: #fff; padding: 1.1rem 0; }
+.encabezado__contenido {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+}
+.marca { display: flex; align-items: center; gap: 0.8rem; }
+.marca__icono {
+  display: grid; place-items: center;
+  width: 46px; height: 46px;
+  background: #fff; color: var(--color-primario);
+  border-radius: 50%; font-size: 1.5rem; font-weight: bold;
+}
+.marca__nombre { font-size: 1.35rem; }
+.marca__bajada { font-size: 0.9rem; opacity: 0.85; }
+
+.insignia-estado {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+/* ---------- Aviso ---------- */
+.aviso-simulacion {
+  background: #fff6e0; border-bottom: 1px solid #f0d58a;
+  color: #6b5200; font-size: 0.9rem; padding: 0.6rem 0;
+}
+
+/* ---------- Layout principal ---------- */
+.principal { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.5rem; padding: 2rem 0; }
+.lateral { display: flex; flex-direction: column; gap: 1.5rem; }
+
+/* ---------- Tarjetas ---------- */
+.tarjeta {
+  background: var(--color-tarjeta);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 1.5rem;
+}
+.tarjeta h2 { font-size: 1.15rem; color: var(--color-primario-oscuro); margin-bottom: 0.4rem; }
+.tarjeta__texto { color: var(--color-suave); margin-bottom: 1.2rem; font-size: 0.95rem; }
+.tarjeta__nota { color: var(--color-suave); font-size: 0.85rem; margin-top: 1rem; }
+
+/* ---------- Formulario ---------- */
+.fila { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.campo { display: flex; flex-direction: column; margin-bottom: 1rem; }
+.campo label { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.3rem; }
+
+.campo input, .campo select, .campo textarea {
+  font: inherit; padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-borde); border-radius: 8px; background: #fbfdfd;
+}
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+  outline: none; border-color: var(--color-acento);
+  box-shadow: 0 0 0 3px rgba(43, 179, 163, 0.2);
+}
+
+.campo--check { flex-direction: row; align-items: flex-start; gap: 0.5rem; }
+.campo--check label { font-weight: 400; }
+.campo--check input { margin-top: 0.3rem; }
+
+.boton {
+  width: 100%; background: var(--color-primario); color: #fff;
+  border: none; border-radius: 8px; padding: 0.8rem;
+  font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.boton:hover { background: var(--color-primario-oscuro); }
+
+.mensaje { margin-top: 1rem; font-size: 0.92rem; }
+.mensaje--ok { color: var(--color-ok); }
+.mensaje--error { color: var(--color-error); }
+
+/* ---------- Listas laterales ---------- */
+.lista-datos, .lista-estado { list-style: none; }
+.lista-datos li {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: 0.55rem 0; border-bottom: 1px dashed var(--color-borde); font-size: 0.9rem;
+}
+.lista-datos li span { color: var(--color-suave); }
+.lista-datos li strong { text-align: right; }
+
+.lista-estado li { display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0; font-size: 0.9rem; }
+.lista-estado li strong { margin-left: auto; }
+
+.punto { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.punto--ok { background: var(--color-ok); }
+.punto--info { background: var(--color-info); }
+
+/* ---------- Pie ---------- */
+.pie { background: #e6eef0; color: var(--color-suave); text-align: center; font-size: 0.85rem; padding: 1.2rem 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 820px) {
+  .principal { grid-template-columns: 1fr; }
+  .fila { grid-template-columns: 1fr; }
+}

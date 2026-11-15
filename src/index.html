@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Servicio web de reserva de horas médicas - Proyecto DevOps integrador (entorno local simulado)">
+  <title>Reserva de Horas Médicas | Centro Médico Vida Sana</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="contenedor encabezado__contenido">
+      <div class="marca">
+        <span class="marca__icono" aria-hidden="true">✚</span>
+        <div>
+          <h1 class="marca__nombre">Centro Médico Vida Sana</h1>
+          <p class="marca__bajada">Servicio web de reserva de horas médicas</p>
+        </div>
+      </div>
+      <span class="insignia-estado">● Servicio operativo</span>
+    </div>
+  </header>
+
+  <div class="aviso-simulacion" role="note">
+    <div class="contenedor">
+      <strong>Entorno de simulación:</strong> este sitio es parte de un proyecto académico DevOps.
+      Los datos ingresados <strong>no se envían ni se almacenan</strong>. No ingrese datos personales reales.
+    </div>
+  </div>
+
+  <main class="contenedor principal">
+
+    <!-- FORMULARIO DE RESERVA -->
+    <section class="tarjeta formulario" aria-labelledby="titulo-reserva">
+      <h2 id="titulo-reserva">Reservar una hora</h2>
+      <p class="tarjeta__texto">Complete el formulario para simular la reserva de una hora médica.</p>
+
+      <form id="form-reserva" novalidate>
+        <div class="campo">
+          <label for="nombre">Nombre completo del paciente</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Paciente de Prueba" required autocomplete="off">
+        </div>
+
+        <div class="fila">
+          <div class="campo">
+            <label for="rut">RUT</label>
+            <input type="text" id="rut" name="rut" placeholder="Ej: 11.111.111-1" required autocomplete="off">
+          </div>
+          <div class="campo">
+            <label for="telefono">Teléfono de contacto</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Ej: +56 9 0000 0000" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="Ej: paciente@ejemplo.cl" required autocomplete="off">
+        </div>
+
+        <div class="fila">
+          <div class="campo">
+            <label for="especialidad">Especialidad</label>
+            <select id="especialidad" name="especialidad" required>
+              <option value="">Seleccione una especialidad</option>
+              <option>Medicina general</option>
+              <option>Pediatría</option>
+              <option>Ginecología</option>
+              <option>Traumatología</option>
+              <option>Cardiología</option>
+              <option>Dermatología</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="prevision">Previsión</label>
+            <select id="prevision" name="prevision" required>
+              <option value="">Seleccione previsión</option>
+              <option>FONASA</option>
+              <option>ISAPRE</option>
+              <option>Particular</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="fila">
+          <div class="campo">
+            <label for="fecha">Fecha de atención</label>
+            <input type="date" id="fecha" name="fecha" required>
+          </div>
+          <div class="campo">
+            <label for="hora">Hora</label>
+            <select id="hora" name="hora" required>
+              <option value="">Seleccione hora</option>
+              <option>08:30</option>
+              <option>09:15</option>
+              <option>10:00</option>
+              <option>11:30</option>
+              <option>15:00</option>
+              <option>16:30</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="motivo">Motivo de la consulta (opcional)</label>
+          <textarea id="motivo" name="motivo" rows="3" placeholder="Describa brevemente el motivo (no ingrese datos clínicos reales)"></textarea>
+        </div>
+
+        <div class="campo campo--check">
+          <input type="checkbox" id="consentimiento" name="consentimiento" required>
+          <label for="consentimiento">Acepto el tratamiento de mis datos para fines de agendamiento (simulación).</label>
+        </div>
+
+        <button type="submit" class="boton">Confirmar reserva</button>
+        <p class="mensaje" id="mensaje" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- COLUMNA LATERAL -->
+    <aside class="lateral">
+
+      <section class="tarjeta" aria-labelledby="titulo-atencion">
+        <h2 id="titulo-atencion">Datos generales de atención</h2>
+        <ul class="lista-datos">
+          <li><span>Horario</span><strong>Lunes a viernes, 08:00 a 20:00</strong></li>
+          <li><span>Sábado</span><strong>09:00 a 13:00</strong></li>
+          <li><span>Dirección</span><strong>Av. Ejemplo 123, Ciudad Demo</strong></li>
+          <li><span>Mesa central</span><strong>+56 2 0000 0000 (ficticio)</strong></li>
+          <li><span>Anulaciones</span><strong>Hasta 24 h antes de la hora</strong></li>
+        </ul>
+        <p class="tarjeta__nota">Presentarse 15 minutos antes con cédula de identidad.</p>
+      </section>
+
+      <section class="tarjeta" aria-labelledby="titulo-estado">
+        <h2 id="titulo-estado">Estado del servicio</h2>
+        <ul class="lista-estado">
+          <li><span class="punto punto--ok"></span>Sitio web <strong>Operativo</strong></li>
+          <li><span class="punto punto--ok"></span>Servidor web <strong>Nginx (nginx:alpine)</strong></li>
+          <li><span class="punto punto--ok"></span>Contenedor <strong>Docker / Docker Compose</strong></li>
+          <li><span class="punto punto--info"></span>Entorno <strong>Local - puerto 8080</strong></li>
+          <li><span class="punto punto--info"></span>Versión <strong>1.0.0</strong></li>
+        </ul>
+        <p class="tarjeta__nota">Última verificación: <span id="hora-verificacion">--</span></p>
+      </section>
+
+    </aside>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>Proyecto DevOps integrador · Servicio web de reserva de horas médicas · IACC 2026</p>
+      <p>Aplicación estática servida con Nginx en Docker. Sin backend, sin base de datos y sin envío de información.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Simulación local: el formulario NO envía ni guarda datos.
+    (function () {
+      var form = document.getElementById('form-reserva');
+      var mensaje = document.getElementById('mensaje');
+      var fecha = document.getElementById('fecha');
+
+      // Fecha mínima = hoy
+      var hoy = new Date();
+      var iso = new Date(hoy.getTime() - hoy.getTimezoneOffset() * 60000).toISOString().split('T')[0];
+      fecha.min = iso;
+
+      document.getElementById('hora-verificacion').textContent = hoy.toLocaleString('es-CL');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          mensaje.textContent = 'Complete todos los campos obligatorios y acepte el consentimiento.';
+          mensaje.className = 'mensaje mensaje--error';
+          return;
+        }
+        var esp = document.getElementById('especialidad').value;
+        var f = fecha.value;
+        var h = document.getElementById('hora').value;
+        var codigo = 'RH-' + Math.floor(100000 + Math.random() * 900000);
+        mensaje.textContent = 'Reserva simulada con éxito (' + codigo + '): ' + esp + ', ' + f + ' a las ' + h +
+          '. Ningún dato fue enviado ni almacenado.';
+        mensaje.className = 'mensaje mensaje--ok';
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+# ---------------------------------------------------------
+# Flujo básico de automatización (actividad complementaria)
+# Valida estructura, construye la imagen y prueba el servicio
+# en cada push o pull request hacia main.
+# No publica la aplicación en servidores externos.
+# ---------------------------------------------------------
+name: DevOps Automation
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validar-y-probar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar estructura obligatoria del proyecto
+        run: |
+          for f in src/index.html src/styles.css Dockerfile docker-compose.yml .env.example .gitignore README.md; do
+            if [ -f "$f" ]; then echo "OK  $f"; else echo "FALTA $f"; exit 1; fi
+          done
+
+      - name: Verificar que no se versionó un archivo .env real
+        run: |
+          if [ -f ".env" ]; then echo "ERROR: .env no debe versionarse"; exit 1; fi
+          echo "OK  no existe .env en el repositorio"
+
+      - name: Construir y levantar el servicio con Docker Compose
+        run: docker compose up -d --build
+
+      - name: Revisar estado del contenedor
+        run: docker compose ps
+
+      - name: Probar respuesta HTTP en localhost:8080
+        run: |
+          sleep 5
+          curl -sSf http://localhost:8080 | grep -q "Reserva de Horas" && echo "OK  servicio responde"
+
+      - name: Revisar logs del contenedor
+        if: always()
+        run: docker compose logs
+
+      - name: Detener y limpiar recursos
+        if: always()
+        run: docker compose down
