@@ -15,7 +15,7 @@ El equipo de operaciones instalaba archivos a mano, configuraba variables y rein
 | Configuración dispersa | Variables en `.env` (local) documentadas en `.env.example` |
 | Falta de trazabilidad | Git + GitHub: commits descriptivos, ramas y pull requests |
 | Riesgo de exponer datos | `.gitignore` excluye `.env`, claves y logs; sin datos reales |
-| Validación manual | GitHub Actions (`devopsautomation.yml`) valida y prueba cada cambio |
+| Validación manual | GitHub Actions (`devops-automation.yml`) valida y prueba cada cambio |
 
 ## Estructura del proyecto
 
@@ -23,7 +23,7 @@ El equipo de operaciones instalaba archivos a mano, configuraba variables y rein
 proyecto-devops-reserva-horas/
 ├── .github/
 │   └── workflows/
-│       └── devopsautomation.yml   # Automatización complementaria (CI)
+│       └── devops-automation.yml   # Automatización complementaria (CI)
 ├── src/
 │   ├── index.html                 # Formulario de reserva, datos de atención y estado del servicio
 │   └── styles.css                 # Hoja de estilos
@@ -43,7 +43,7 @@ proyecto-devops-reserva-horas/
 ## Instalación
 
 ```bash
-git clone https://github.com/USUARIO/proyecto-devops-reserva-horas.git
+git clone https://github.com/jnjimmy/proyecto-devops-reserva-horas.git
 cd proyecto-devops-reserva-horas
 ```
 
@@ -94,4 +94,4 @@ docker compose down
 
 ## Automatización (complementaria)
 
-El workflow `.github/workflows/devopsautomation.yml` se ejecuta en cada push o pull request a `main`: verifica la estructura del proyecto, confirma que no exista un `.env` versionado, construye y levanta el servicio con Docker Compose, prueba la respuesta HTTP en el puerto 8080, muestra los logs y limpia los recursos. No publica la aplicación en servidores externos.
+El workflow `.github/workflows/devops-automation.yml` se ejecuta en cada push o pull request a `main`: verifica la estructura del proyecto, confirma que no exista un `.env` versionado, construye y levanta el servicio con Docker Compose, prueba la respuesta HTTP en el puerto 8080, muestra los logs y limpia los recursos. No publica la aplicación en servidores externos.
