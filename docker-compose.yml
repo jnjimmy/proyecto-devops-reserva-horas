@@ -1,0 +1,18 @@
+# ---------------------------------------------------------
+# Servicio web de reserva de horas médicas
+# Levantar:  docker compose up -d --build
+# Verificar: http://localhost:8080
+# ---------------------------------------------------------
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: reserva-horas-web:1.0.0
+    container_name: reserva-horas-web
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+      - APP_VERSION=${APP_VERSION:-1.0.0}
+    restart: unless-stopped
